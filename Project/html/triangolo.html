@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv=”Content-Type” content=”text/html; charset=iso-8859-1″>
+        <link rel="stylesheet" href = "style.css" type = "text/css">
+    </head>
+    <body>
+        <center><Font size = "7" color = "red">Triangolo di Carte</Font></center>
+        <p>
+            <h2><b>Traccia:</b></h2>
+        </p>
+        <p>
+            Si vuole sviluppare un programma per verificare se da un array di 5 interi generati a caso 
+            ([6, 14, 15, 3, 13] in figura) è possibile costruire un triangolo. 
+            Si suppone di avere 15 numeri consecutivi da 1 a 15. Il gioco richiede che ogni carta sia la 
+            differenza tra le due carte che le stanno immediatamente sotto, 
+            a sinistra e a destra. Un esempio è il seguente:
+        </p>
+        <p>
+            <center><img src = "immagini/Triangolo.JPG"></center>
+        </p>
+        <p>
+            Effettuare almeno 5 simulazioni generando dei numeri interi casuali.
+        </p>
+        <p>
+            <h2><b>Codice:</b></h2>
+        </p>
+        <pre class = "wp-block-code" ng-show = "textFile.isPresent">
+            <code>
+                //includo le librerie
+                #include &lt;stdio.h&gt;
+                #include &lt;stdlib.h&gt;
+                #include &lt;time.h&gt;<br>
+                void g_num(int [], int); //prototipo per generare numeri e inserirli nell'array
+                int dif_num(int, int); //prototipo per calcolare la differenza
+                int val_ass(int); //prototipo per calcolare il valore assoluto<br>
+                void main(){
+                    int array[5], n = 5 ,dif, ns;
+                    srand(time(NULL)); //cambio il seed alla funzione rand
+                    g_num(array, n); // richiamo il prototipo g_num
+                    for (int i = 0; i < n; i++){
+                        printf("|%d|", array[i]); //stampo l'array
+                    }
+                    printf("\n");
+                    ns = n; //assegno il valore di n a ns
+                    for(int i = 0; i < n; i++){
+                        for(int j = 0; j < ns - 1; j++){ //for innestato per calcolare la differenza
+                            dif = dif_num(array[j], array[j + 1]); //richiamo il prototipo dif_num e passo il elementi dell'array
+                            array[j] = val_ass(dif); //assegno il valore della differenza all'array
+                        }
+                        for(int j = 0; j < ns - 1; j++){
+                            printf("|%d|", array[j]); //stampo l'array
+                        }
+                        printf("\n");
+                        ns--; //decremento ns
+                    }
+                }<br>
+                /* il prototipo permette di generare numeri casuali e di inserirli nell'array, come parametri passo un array
+                    e una variabile intera per specificare la dimensione dell'array */
+                void g_num(int array[], int n){
+                    int temp; //dichiaro una variabile temporanea
+                    for(int i = 0; i < n; i++){
+                        temp = 1 + rand() % 16; //genero un numero casuale da 1 a 15
+                        for(int j = 0; j < n; j++){
+                            if(array[j] == temp) //verifico se il numero generato non sia contenuto nell'array
+                                temp = 1 + rand() % 16; //genero un nuovo numero casuale da 1 a 15
+                        }
+                        array [i] = temp; //assegno il valore di temp all'array
+                    }
+                }<br>
+                /* il prototipo permette di calcolare la differenza di due numeri, come parametri passo due variabili intere */
+                int dif_num(int a, int b){
+                    int dif = a - b; //calcolo la differenza tra a e b
+                    return dif; //ritorna il valore dif
+                }<br>
+                /* il prototipo permette di calcolare il valore assoluto di un numero, come parametri passo una variabile intera */
+                int val_ass(int x){
+                    if(x >= 0) //controllo se y è minore di 0
+                        return x; //ritorna il valore assoluto di x
+                    else
+                        return -x; //ritorna il valore x
+                }
+            </code>
+        </pre>
+        <p>
+            <h2>Spiegazione:</h2>
+        </p>
+        <p>
+            Il programma usa e memorizza i numeri  generati casualmente e la loro differenza in un solo vettore.<br>
+            Creo il primo prototipo chiamato g_num e passo un array e la dimensione dell’array, il prototipo serve per generare numeri casuali e inserirli nell’array, ma viene anche fatto un controllo dei numeri generati nell’array in modo che se viene generato uno stesso numero gia generato il programma ne genera un altro.<br>
+            Creo il prototipo chiamato dif_num e passo due variabili, il prototipo serve per calcolare la differenza tra due numeri.<br>
+            Creo il prototipo chiamato val_ass e passo una variabile, il prototipo serve per calcolare il valore assoluto di un numero.<br>
+            Nel main dichiaro un array dove inserire i numeri generati random, un variabile per la dimensione dell’array, una variabile per la differenza dei numeri e ns con la stessa dimensione di n per decrementarla, poi cambio il seme di rand è lo imposto con il clock del dispositivo, richiamo il prototipo g_num e passo array e dimensione dell’array.<br>
+            Con il for faccio stampare tutti i numeri generati casualmente nell’array.<br>
+            Poi utilizzo di nuovo il for e ne innesto un altro per calcolare la differenza tra i due numeri dell’array e li salvo in una variabile.<br>
+            Richiamo il prototipo per calcolare il valore assoluto, gli passo la differenza calcolata e poi la salvo nell’array.<br>
+            Con un altro for stampo l’array.
+
+        </p>
+        <p>
+            <h2>Simulazione:</h2>
+        </p>
+        <p>
+            <h3>1)</h3>
+            <center>
+                <img src = "immagini/simulazionet(1).JPG">
+            </center>
+        </p>
+        <p>
+            <h3>2)</h3>
+            <center>
+                <img src = "immagini/simulazionet(2).JPG">
+            </center>
+        </p>
+        <p>
+            <h3>3)</h3>
+            <center>
+                <img src = "immagini/simulazionet(3).JPG">
+            </center>
+        </p>
+        <p>
+            <h3>4)</h3>
+            <center>
+                <img src = "immagini/simulazionet(4).JPG">
+            </center>
+        </p>
+        <p>
+            <h3>5)</h3>
+            <center>
+                <img src = "immagini/simulazionet(5).JPG">
+            </center>
+        </p>
+        <p><h3>Html Creato Da:</h3></p>
+        <p>
+            <center>
+                <font size = "5">
+                    Gravino Francesco Pio 0124002703
+                </font>
+            </center>
+        </p>
+    </body>
+</html>

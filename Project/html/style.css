@@ -1,0 +1,13 @@
+pre{
+    border: solid 10px black;
+    background-color: #fafafa;
+    width: 95%;
+    display: block;
+    font-size: medium;
+    padding-right: 40px;
+}
+.p{
+    color: black;
+    font-weight: bold;
+    display: block;
+}
